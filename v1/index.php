@@ -1,5 +1,4 @@
 <?php
-
 require 'controladores/usuarios.php';
 require 'vistas/VistaXML.php';
 require 'vistas/VistaJson.php';
