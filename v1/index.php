@@ -1,7 +1,6 @@
 <?php
 
 require 'controladores/usuarios.php';
-require 'controladores/contactos.php';
 require 'vistas/VistaXML.php';
 require 'vistas/VistaJson.php';
 require 'utilidades/ExcepcionApi.php';
@@ -42,11 +41,11 @@ set_exception_handler(function ($exception) use ($vista) {
 if (isset($_GET['PATH_INFO']))
     $peticion = explode('/', $_GET['PATH_INFO']);
 else
-    throw new ExcepcionApi(ESTADO_URL_INCORRECTA, utf8_encode("No se reconoce la petición"));
+    throw new ExcepcionApi(ESTADO_URL_INCORRECTA, utf8_encode("No se reconoce la peticiï¿½n"));
 
 // Obtener recurso
 $recurso = array_shift($peticion);
-$recursos_existentes = array('contactos', 'usuarios');
+$recursos_existentes = array('usuarios');
 
 // Comprobar si existe el recurso
 if (!in_array($recurso, $recursos_existentes)) {
@@ -56,7 +55,7 @@ if (!in_array($recurso, $recursos_existentes)) {
 
 $metodo = strtolower($_SERVER['REQUEST_METHOD']);
 
-// Filtrar método
+// Filtrar metodo
 switch ($metodo) {
     case 'get':
     case 'post':
@@ -68,14 +67,13 @@ switch ($metodo) {
             break;
         }
     default:
-        // Método no aceptado
+        // Mï¿½todo no aceptado
         $vista->estado = 405;
         $cuerpo = [
             "estado" => ESTADO_METODO_NO_PERMITIDO,
-            "mensaje" => utf8_encode("Método no permitido")
+            "mensaje" => utf8_encode("Metodo no permitido")
         ];
         $vista->imprimir($cuerpo);
-
 }
 
 
